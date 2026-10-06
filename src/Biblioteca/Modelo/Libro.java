@@ -6,7 +6,7 @@ import java.util.Set;
 public class Libro {
     private String titulo;
     private String autor;
-    Set<Ejemplar> libros = new HashSet<>();
+    public Set<Ejemplar> ejemplares = new HashSet<>();
 
     public Libro(String titulo, String autor) {
         this.titulo = titulo;
@@ -14,12 +14,12 @@ public class Libro {
     }
 
     public void agregarEjemplar(String codigo, EstadoEjemplar estado) {
-        libros.add(new Ejemplar(codigo, estado));
+        ejemplares.add(new Ejemplar(codigo, estado));
         System.out.println("Ejemplar agregado");
     }
     public void mostrarEjemplares() {
         System.out.println(titulo);
-        for(Ejemplar ejemplar : libros) {
+        for(Ejemplar ejemplar : ejemplares) {
             System.out.println("Codigo: "+ejemplar.getCodigo()+" Estado: " +ejemplar.getEstado());
         }
     }

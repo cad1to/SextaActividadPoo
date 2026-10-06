@@ -2,6 +2,7 @@ package Biblioteca.Servicio;
 
 import Biblioteca.Modelo.Ejemplar;
 import Biblioteca.Modelo.EstadoEjemplar;
+import Biblioteca.Modelo.Libro;
 import Biblioteca.Modelo.Usuario;
 
 import java.time.LocalDate;
@@ -17,33 +18,35 @@ public class Prestamo {
         this.fechaDevolucion = fechaDevolucion;
     }
 
-    public String realizarPrestamo(Usuario usuario, Ejemplar ejemplar ) {
-        if (ejemplar.getEstado() == EstadoEjemplar.DANADO || ejemplar.getEstado() == EstadoEjemplar.PRESTADO) {
-            return "Este prestamo no puede ser realizado";
-        } else {
-            ejemplar.setEstado(EstadoEjemplar.PRESTADO);
-            return "Se presto " + ejemplar.getCodigo() + " a " + usuario.getNombre();
+    public String realizarPrestamo(Usuario usuario, Libro libro) {
+        for (Ejemplar ejemplar : libro.ejemplares){
+            if (ejemplar.getEstado() == EstadoEjemplar.DISPONIBLE) {
+                ejemplar.setEstado(EstadoEjemplar.PRESTADO);
+                usuario.ejemplaresEnPosesion.add(ejemplar);
+                return "Libro prestado con exito a" + usuario.getNombre() + "Codigo del ejemplar prestado: " + ejemplar.getCodigo();
+            }
         }
+        return "No hay libros disponibles";
     }
 
-    public void devolver (Ejemplar ejemplar) {
-
-        if (ejemplar.getEstado() == EstadoEjemplar.PRESTADO) {
-            if (estaVencido()) System.out.println("Entrega tardia, cuota adicional");
-            System.out.println("¿El libro esta dañado? 1: SI 2: NO");
-            Scanner leer = new Scanner(System.in);
-            int dañado = leer.nextInt();
-            if (dañado == 1) {
-                ejemplar.setEstado(EstadoEjemplar.DANADO);
-                System.out.println("Ya no te te presto nada bye :v");
-            } else if (dañado == 2) {
-                ejemplar.setEstado(EstadoEjemplar.DISPONIBLE);
-                System.out.println("Devoluciendo prestamo");
+    public void devolver (Libro libro, Usuario usuario,String codigo) {
+        for (Ejemplar ejemplar : libro.ejemplares) {
+            if (codigo.equals(ejemplar.getCodigo())){
+                Scanner leer = new Scanner(System.in);
+                System.out.println("¿El ejemplar esta dañado?");
+                String dañado = leer.next();
+                if (dañado.equals("Si")){
+                    System.out.println("Cuota extra por: Ejemplar dañado");
+                    ejemplar.setEstado(EstadoEjemplar.DANADO);
+                } else if (dañado.equals("No")) {
+                    ejemplar.setEstado(EstadoEjemplar.DISPONIBLE);
+                } else {
+                    System.out.println("Opcion no valida");
+                }
+                usuario.ejemplaresEnPosesion.removeIf(e -> codigo.equals(e.getCodigo()));
             } else {
-                System.out.println("Opcion no valida");
+                System.out.println("Ejemplar no encontrado");
             }
-        } else {
-            System.out.println("Libro no encontrado");
         }
     }
 
