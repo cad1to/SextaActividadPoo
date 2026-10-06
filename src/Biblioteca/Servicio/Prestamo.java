@@ -45,7 +45,7 @@ public class Prestamo {
                 }
                 usuario.ejemplaresEnPosesion.removeIf(e -> codigo.equals(e.getCodigo()));
             } else {
-                System.out.println("Ejemplar no encontrado");
+                System.out.println("Ejemplar no encontrado ");
             }
         }
     }
