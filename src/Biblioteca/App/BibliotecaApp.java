@@ -181,22 +181,16 @@ public class BibliotecaApp {
                     String titulo = leer.nextLine();
                     biblioteca1.prestamoSet.add(prestamoDefault);
                     encontrado = false;
-                    for (Usuario usuario : biblioteca1.usuarios) {
-                        if (nombreBusqueda.equals(usuario.getNombre())) {
-                            usuario.agregarPrestamo(prestamoDefault);
-                            for (Libro libro : biblioteca1.librosSet) {
-                                if (titulo.equals(libro.getTitulo())) {
-                                    prestamoDefault.registrarPrestamo(usuario,libro);
-                                    encontrado = true;
-                                    break;
+                    for (Libro libro : biblioteca1.librosSet) {
+                        if (titulo.equals(libro.getTitulo())) {
+                            for (Usuario usuario : biblioteca1.usuarios) {
+                                if (nombreBusqueda.equals(usuario.getNombre())) {
+                                    prestamoDefault.registrarPrestamo(usuario, libro);
+                                    usuario.agregarPrestamo(prestamoDefault);
                                 }
                             }
-                            encontrado = true;
-                            break;
                         }
                     }
-
-
                     break;
                 case 2:
                     System.out.println("Ingrese el nombre del usuario y asi registrar su prestamo");
