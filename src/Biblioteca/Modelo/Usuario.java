@@ -1,4 +1,5 @@
 package Biblioteca.Modelo;
+import Biblioteca.Servicio.Prestamo;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,17 +7,26 @@ import java.util.Set;
 public class Usuario {
     private String nombre;
     private String numUsuario;
-    public Set<Ejemplar> ejemplaresEnPosesion = new HashSet<>();
+    private Set<Prestamo> PrestamosUsuario = new HashSet<>();
 
     public Usuario(String nombre, String numUsuario) {
         this.nombre = nombre;
         this.numUsuario = numUsuario;
     }
 
-    public void mostrarLibrosPrestados () {
-        for (Ejemplar ejemplar : ejemplaresEnPosesion) {
-            System.out.println("Codigo: "+ ejemplar.getCodigo() + "Codigo ");
+    public void agregarPrestamo(Prestamo prestamo){
+        PrestamosUsuario.add(prestamo);
+    }
+
+    public void mostrarEjemplares() {
+        System.out.println("Libros en posicion de "+getNombre()+".");
+        for(Prestamo prestamoX : PrestamosUsuario) {
+            prestamoX.mostrarEjemplares();
         }
+    }
+
+    public Set<Prestamo> getPrestamosUsuario() {
+        return PrestamosUsuario;
     }
 
     public String getNombre() {

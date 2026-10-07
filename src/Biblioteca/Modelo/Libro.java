@@ -23,6 +23,16 @@ public class Libro {
             System.out.println("Codigo: "+ejemplar.getCodigo()+" Estado: " +ejemplar.getEstado());
         }
     }
+
+    public Ejemplar buscarParaPrestamo(){
+        for (Ejemplar ejemplarX : ejemplares){
+            if(ejemplarX.getEstado() == EstadoEjemplar.DISPONIBLE){
+                return ejemplarX;
+            }
+        }
+        return null;
+    }
+
     public String getTitulo() {
         return titulo;
     }
