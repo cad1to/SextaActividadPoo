@@ -16,9 +16,10 @@ public class Prestamo {
     private String nombreUsuario;
     Set<Ejemplar> ejemplaresDelPrestamo = new HashSet<>();
 
-    public Prestamo(LocalDate fechaPrestamo, LocalDate fechaDevolucion) {
+    public Prestamo(LocalDate fechaPrestamo, LocalDate fechaDevolucion, String nombreUsuario) {
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
+        this.nombreUsuario = nombreUsuario;
     }
 
     public String registrarPrestamo(Usuario usuario, Libro libro) {
@@ -76,5 +77,9 @@ public class Prestamo {
     public boolean estaVencido(){
         LocalDate fechaActual = LocalDate.now();
         return !fechaActual.isBefore(fechaDevolucion);
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 }

@@ -1,5 +1,7 @@
 package Biblioteca.Modelo;
 
+import Biblioteca.Servicio.Prestamo;
+
 import java.util.HashSet;
 import java.util.Set;
 

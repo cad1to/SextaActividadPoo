@@ -7,7 +7,7 @@ import java.util.Set;
 public class Usuario {
     private String nombre;
     private String numUsuario;
-    private Set<Prestamo> PrestamosUsuario = new HashSet<>();
+    public Set<Prestamo> PrestamosUsuario = new HashSet<>();
 
     public Usuario(String nombre, String numUsuario) {
         this.nombre = nombre;
@@ -36,4 +36,5 @@ public class Usuario {
     public String getNumUsuario() {
         return numUsuario;
     }
+
 }
